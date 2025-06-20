@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from "react"
 // import animeData, { getAnimeTitle } from "../anime-data"
-import { jdramasByYear } from "../jdramas-by-year"
-const animeData = jdramasByYear
+import { eigasByYear } from "../eigas-by-year-popular"
+const animeData = eigasByYear
 import { domToBlob } from "modern-screenshot"
 import { toast } from "sonner"
 import { usePersistState } from "./hooks"
@@ -85,7 +85,7 @@ ${Object.keys(animeData)
 
     if (items.length === 0) return ""
 
-    const sliceItems = items.slice(0, 15)
+    const sliceItems = items.slice(0, 10)
     const watched = sliceItems
       .filter((item) => selectedAnime.includes(item.title))
       .map((item) => item.title)
@@ -109,7 +109,7 @@ ${Object.keys(animeData)
   }, [selectedAnime, promptType, language, t])
 
   const totalAnime = Object.values(animeData).flatMap((year) => {
-    return year.map((item) => item.title).slice(0, 15)
+    return year.map((item) => item.title).slice(0, 10)
   }).length
 
   return (
@@ -161,7 +161,7 @@ ${Object.keys(animeData)
                       </span>
                     </div>
                     <div className="flex shrink-0">
-                      {items.slice(0, 15).map((item) => {
+                      {items.slice(0, 10).map((item) => {
                         const animeKey = item.title
                         const displayTitle = item.title
                         const isSelected = selectedAnime.includes(animeKey)
@@ -210,7 +210,7 @@ ${Object.keys(animeData)
                         )
                       })}
                       {Array.from(
-                        { length: Math.max(0, 15 - items.length) },
+                        { length: Math.max(0, 10 - items.length) },
                         (_, index) => (
                           <div
                             key={`empty-${index}`}
@@ -244,7 +244,7 @@ ${Object.keys(animeData)
                 Object.values(animeData).flatMap((year) => {
                   return year
                     .map((item) => item.title)
-                    .slice(0, 15)
+                    .slice(0, 10)
                 })
               )
             }}
@@ -373,7 +373,7 @@ ${Object.keys(animeData)
           </a>
           {t("madeBy")}
           <a
-            href="https://github.com/AisIceEyes/jdorama-sedai"
+            href="https://github.com/AisIceEyes/eiga-sedai"
             target="_blank"
             className="underline"
           >
